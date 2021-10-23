@@ -14,6 +14,13 @@
  Dashboard (chars, settings, auth)
 ```
 
+### Services list
+
+- [ ] API server
+- [ ] Storage server
+- [ ] Repository server
+- [ ] Monitoring server(s)
+
 ### Describe Tables 
 
 #### (metrics)

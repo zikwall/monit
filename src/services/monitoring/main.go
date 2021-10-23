@@ -1,4 +1,4 @@
-package api
+package monitoring
 
 import (
 	"github.com/urfave/cli/v2"
@@ -29,10 +29,10 @@ func main() {
 				EnvVars:  []string{"REPOSITORY_ADDRESS"},
 			},
 			&cli.StringFlag{
-				Name:     "monitoring-address",
+				Name:     "api-address",
 				Required: true,
 				Usage:    "Monitoring gRPC host",
-				EnvVars:  []string{"MONITORING_ADDRESS"},
+				EnvVars:  []string{"API_ADDRESS"},
 			},
 			&cli.BoolFlag{
 				Name:    "debug",
