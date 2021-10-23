@@ -54,6 +54,8 @@
 - [ ] **Monitoring Server(-s)**
   - [ ] Perform(stream)
   - [ ] Revoke(stream)
+  - [ ] Monitor stream data (with transcode)
+  - [ ] Monitor stream screens (with transcode)
   - [ ] Event Loop
   - [ ] Periodical Loop
   - [ ] Health check API
