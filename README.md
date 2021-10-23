@@ -34,6 +34,7 @@
   - [ ] GET  /api/query/platform/v1
   - [ ] GET  /api/query/summary/v1
   - [ ] GET  ... more query like api endpoints
+  - [ ] WebSockets for events and heatmaps
   - [ ] Health check API
   - [ ] Metrics API
 - [ ] **Storage Server**
