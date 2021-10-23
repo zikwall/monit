@@ -34,10 +34,14 @@
   - [ ] GET  /api/query/platform/v1
   - [ ] GET  /api/query/summary/v1
   - [ ] GET  ... more query like api endpoints
+  - [ ] Health check API
+  - [ ] Metrics API
 - [ ] **Storage Server**
   - [ ] WriteHeatmap()
   - [ ] WriteEvent()
   - [ ] Queries
+  - [ ] Health check API
+  - [ ] Metrics API
 - [ ] **Repository Server**
   - [ ] FindStream()
   - [ ] UpdateStream()
@@ -45,11 +49,15 @@
   - [ ] UpStream()
   - [ ] DownStream()
   - [ ] more like as api enpoints
+  - [ ] Health check API
+  - [ ] Metrics API
 - [ ] **Monitoring Server(-s)**
   - [ ] Perform(stream)
   - [ ] Revoke(stream)
   - [ ] Event Loop
   - [ ] Periodical Loop
+  - [ ] Health check API
+  - [ ] Metrics API
 
 ### Describe Tables 
 
