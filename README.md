@@ -5,11 +5,13 @@
 ### Communication draw
 
 ```shell
-
- API <-------> Repository <----> MySQL (settings, users)
-  |      \---> Storage <-------> Clickhouse (metrcis, heatmap, events, statuses)
-  |     
- Dashboard
+                                                      (include metrics, http, screenshots)
+  | <------- (signals)------> Monitoring <-- (read settings from repository, write data to storage) --> |
+  |                                                                                                     |
+ API <---- (read/wrire) ----> Repository <----> MySQL (settings, users) <-----------------------------> |
+  |      \-- (read/write) --> Storage <-------> Clickhouse (metrcis, heatmap, events, statuses) <-----> |
+  |    
+ Dashboard (chars, settings, auth)
 ```
 
 ### Describe Tables 
