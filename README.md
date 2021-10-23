@@ -16,10 +16,40 @@
 
 ### Services list
 
-- [ ] API server
-- [ ] Storage server
-- [ ] Repository server
-- [ ] Monitoring server(s)
+- [ ] **API Server**
+  - [ ] POST /api/data/heatmap/v1
+  - [ ] POST /api/data/events/v1
+  - [ ] POST /api/state/streams/v1/[:id]/up
+  - [ ] POST /api/state/streams/v1/[:id]/down
+  - [ ] DELETE /api/state/streams/v1/[:id]/delete
+  - [ ] GET  /api/state/streams/v1
+  - [ ] GET  /api/state/streams/v1/[:id]
+  - [ ] POST /api/state/streams/v1/[:id]/update
+  - [ ] POST /api/state/streams/v1/[:id]/create
+  - [ ] POST /api/config/user/v1/[:id]/update
+  - [ ] POST /api/config/user/v1/[:id]/create
+  - [ ] GET  /api/config/user/v1/[:id]
+  - [ ] POST /api/auth/jwt/v1
+  - [ ] GET  /api/query/unique/v1
+  - [ ] GET  /api/query/platform/v1
+  - [ ] GET  /api/query/summary/v1
+  - [ ] GET  ... more query like api endpoints
+- [ ] **Storage Server**
+  - [ ] WriteHeatmap()
+  - [ ] WriteEvent()
+  - [ ] Queries
+- [ ] **Repository Server**
+  - [ ] FindStream()
+  - [ ] UpdateStream()
+  - [ ] DeleteStream()
+  - [ ] UpStream()
+  - [ ] DownStream()
+  - [ ] more like as api enpoints
+- [ ] **Monitoring Server(-s)**
+  - [ ] Perform(stream)
+  - [ ] Revoke(stream)
+  - [ ] Event Loop
+  - [ ] Periodical Loop
 
 ### Describe Tables 
 
