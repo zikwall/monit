@@ -6,8 +6,10 @@
 
 ```shell
 
- API <------> Repository <----> MySQL (settings, users)
-        \---> Storage <-------> Clickhouse (metrcis, heatmap, events, statuses)
+ API <-------> Repository <----> MySQL (settings, users)
+  |      \---> Storage <-------> Clickhouse (metrcis, heatmap, events, statuses)
+  |     
+ Dashboard
 ```
 
 ### Describe Tables 
