@@ -35,6 +35,7 @@
   - [ ] GET  /api/query/summary/v1
   - [ ] GET  ... more query like api endpoints
   - [ ] WebSockets for events and heatmaps
+  - [ ] Protect all endpoints (with JWT or basic auth or just simple tokens)
   - [ ] Health check API
   - [ ] Metrics API
 - [ ] **Storage Server**
