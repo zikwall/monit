@@ -18,10 +18,21 @@ message HeatmapMessage {
   string userAgent = 11;
 }
 
-message HeatmapResponse {
-  common.Error error = 1;
+
+message MetricMessage {
+  string  streamID = 1;
+  fixed64 bitrate = 2;
+  uint64  frames = 3;
+  uint64  height = 4;
+  fixed64 fps = 5;
+  uint64  bytes = 6;
+  fixed64 seconds = 7;
+  uint64  keyframeInterval = 8;
 }
 
+message Response {}
+
 service Storage {
-  rpc WriteHeatmap(HeatmapMessage) returns (HeatmapResponse) {}
+  rpc WriteHeatmap(HeatmapMessage) returns (Response) {}
+  rpc WriteMetric(MetricMessage) returns (Response) {}
 }

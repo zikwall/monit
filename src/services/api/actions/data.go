@@ -21,6 +21,6 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 	return err
 }
 
-func (ht *HTTPController) Event(_ *fiber.Ctx) error {
+func (ht *HTTPController) Event(ctx *fiber.Ctx) error {
 	return nil
 }
