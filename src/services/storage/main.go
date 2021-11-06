@@ -66,7 +66,7 @@ func main() {
 }
 
 func Main(ctx *cli.Context) error {
-	await, _ := signal.Notifier(func() {
+	await, stop := signal.Notifier(func() {
 		logger.Info("received a system signal to shutdown STORAGE server, start the shutdown process..")
 	})
 
@@ -82,11 +82,13 @@ func Main(ctx *cli.Context) error {
 	go func() {
 		listener, err := net.Listen("tcp", ctx.String("bind-address"))
 		if err != nil {
-			logger.Error(fmt.Sprintf("failed to listen: %v", err))
+			stop(fmt.Errorf("failed to listen: %v", err))
+			return
 		}
 
 		if err := grpcServer.Serve(listener); err != nil {
-			logger.Error(fmt.Sprintf("failed run gRPC server: %v", err))
+			stop(fmt.Errorf("failed run gRPC server: %v", err))
+			return
 		}
 	}()
 
