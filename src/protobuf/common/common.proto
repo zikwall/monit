@@ -7,3 +7,5 @@ message Error {
   uint32 code = 1;
   string message = 2;
 }
+
+message EmptyResponse {}

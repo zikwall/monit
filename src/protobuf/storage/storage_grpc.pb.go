@@ -4,6 +4,7 @@ package storage
 
 import (
 	context "context"
+	common "github.com/zikwall/monit/src/protobuf/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -18,8 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StorageClient interface {
-	WriteHeatmap(ctx context.Context, in *HeatmapMessage, opts ...grpc.CallOption) (*Response, error)
-	WriteMetric(ctx context.Context, in *MetricMessage, opts ...grpc.CallOption) (*Response, error)
+	WriteHeatmap(ctx context.Context, in *HeatmapMessage, opts ...grpc.CallOption) (*common.EmptyResponse, error)
+	WriteMetric(ctx context.Context, in *MetricMessage, opts ...grpc.CallOption) (*common.EmptyResponse, error)
 }
 
 type storageClient struct {
@@ -30,8 +31,8 @@ func NewStorageClient(cc grpc.ClientConnInterface) StorageClient {
 	return &storageClient{cc}
 }
 
-func (c *storageClient) WriteHeatmap(ctx context.Context, in *HeatmapMessage, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *storageClient) WriteHeatmap(ctx context.Context, in *HeatmapMessage, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
+	out := new(common.EmptyResponse)
 	err := c.cc.Invoke(ctx, "/storage.Storage/WriteHeatmap", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -39,8 +40,8 @@ func (c *storageClient) WriteHeatmap(ctx context.Context, in *HeatmapMessage, op
 	return out, nil
 }
 
-func (c *storageClient) WriteMetric(ctx context.Context, in *MetricMessage, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *storageClient) WriteMetric(ctx context.Context, in *MetricMessage, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
+	out := new(common.EmptyResponse)
 	err := c.cc.Invoke(ctx, "/storage.Storage/WriteMetric", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +53,8 @@ func (c *storageClient) WriteMetric(ctx context.Context, in *MetricMessage, opts
 // All implementations must embed UnimplementedStorageServer
 // for forward compatibility
 type StorageServer interface {
-	WriteHeatmap(context.Context, *HeatmapMessage) (*Response, error)
-	WriteMetric(context.Context, *MetricMessage) (*Response, error)
+	WriteHeatmap(context.Context, *HeatmapMessage) (*common.EmptyResponse, error)
+	WriteMetric(context.Context, *MetricMessage) (*common.EmptyResponse, error)
 	mustEmbedUnimplementedStorageServer()
 }
 
@@ -61,10 +62,10 @@ type StorageServer interface {
 type UnimplementedStorageServer struct {
 }
 
-func (UnimplementedStorageServer) WriteHeatmap(context.Context, *HeatmapMessage) (*Response, error) {
+func (UnimplementedStorageServer) WriteHeatmap(context.Context, *HeatmapMessage) (*common.EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteHeatmap not implemented")
 }
-func (UnimplementedStorageServer) WriteMetric(context.Context, *MetricMessage) (*Response, error) {
+func (UnimplementedStorageServer) WriteMetric(context.Context, *MetricMessage) (*common.EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteMetric not implemented")
 }
 func (UnimplementedStorageServer) mustEmbedUnimplementedStorageServer() {}

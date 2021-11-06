@@ -18,7 +18,6 @@ message HeatmapMessage {
   string userAgent = 11;
 }
 
-
 message MetricMessage {
   string  streamID = 1;
   fixed64 bitrate = 2;
@@ -30,9 +29,7 @@ message MetricMessage {
   uint64  keyframeInterval = 8;
 }
 
-message Response {}
-
 service Storage {
-  rpc WriteHeatmap(HeatmapMessage) returns (Response) {}
-  rpc WriteMetric(MetricMessage) returns (Response) {}
+  rpc WriteHeatmap(HeatmapMessage) returns (common.EmptyResponse) {}
+  rpc WriteMetric(MetricMessage) returns (common.EmptyResponse) {}
 }
