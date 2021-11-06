@@ -1,9 +1,13 @@
-package storage
+package main
 
 import (
+	"fmt"
 	"github.com/urfave/cli/v2"
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
+	"github.com/zikwall/monit/src/protobuf/storage"
+	"google.golang.org/grpc"
+	"net"
 	"os"
 )
 
@@ -66,9 +70,26 @@ func Main(ctx *cli.Context) error {
 		logger.Info("received a system signal to shutdown STORAGE server, start the shutdown process..")
 	})
 
-	go func() {
-		// run gRPC server here
+	grpcServer := grpc.NewServer([]grpc.ServerOption{}...)
+	storage.RegisterStorageServer(grpcServer, &serverImpl{})
+
+	defer func() {
+		grpcServer.GracefulStop()
+		logger.Info("storage gRPC server is stopped")
 	}()
 
+	// run gRPC server here
+	go func() {
+		listener, err := net.Listen("tcp", ctx.String("bind-address"))
+		if err != nil {
+			logger.Error(fmt.Sprintf("failed to listen: %v", err))
+		}
+
+		if err := grpcServer.Serve(listener); err != nil {
+			logger.Error(fmt.Sprintf("failed run gRPC server: %v", err))
+		}
+	}()
+
+	logger.Info("run storage service")
 	return await()
 }

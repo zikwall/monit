@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package storage;
+
+import "src/protobuf/common/common.proto";
+option go_package = "github.com/zikwall/monit/src/protobuf/storage";
+
+message HeatmapMessage {
+  string streamID = 1;
+  string uniqueID = 2;
+  string platform = 3;
+  string app = 4;
+  string version = 5;
+  string os = 6;
+  string browser = 7;
+  string region = 9;
+  string host = 10;
+  string userAgent = 11;
+}
+
+message HeatmapResponse {
+  common.Error error = 1;
+}
+
+service Storage {
+  rpc WriteHeatmap(HeatmapMessage) returns (HeatmapResponse) {}
+}

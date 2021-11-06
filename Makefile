@@ -1,6 +1,8 @@
 PROJECT_NAME=$(shell basename "$(PWD)")
 SCRIPT_AUTHOR=Andrey Kapitonov <andrey.kapitonov.96@gmail.com>
 SCRIPT_VERSION=0.0.1
+SERVICES=\
+	storage
 
 api:
 	./bin/build_api.sh
@@ -13,6 +15,24 @@ repository:
 
 storage:
 	./bin/build_storage.sh
+
+common_proto:
+	protoc -I . \
+    	--go_out=.  \
+    	--go_opt=paths=source_relative \
+    	--go-grpc_out=. \
+    	--go-grpc_opt=paths=source_relative \
+    	./src/protobuf/common/*.proto;
+
+$(SERVICES):
+	protoc -I ./src/protobuf/$@/ -I . \
+		--go_out=./src/protobuf/$@/ \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=./src/protobuf/$@/ \
+		--go-grpc_opt=paths=source_relative \
+		$@.proto;
+
+default: common_proto $(SERVICES)
 
 help:
 	@echo -e "Usage: make [target] ...\n"
