@@ -25,7 +25,7 @@ func New(ctx context.Context, options *ImplOptions) (*Impl, error) {
 	s := &Impl{drop: &drop.Droppable{}}
 	s.Context, s.cancelRoot = context.WithCancel(ctx)
 
-	storageClientImpl, err := newStorageClient(options.StorageAddress)
+	storageClientImpl, err := newStorageClient(ctx, options.StorageAddress)
 	if err != nil {
 		return nil, err
 	}

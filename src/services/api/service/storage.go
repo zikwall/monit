@@ -1,8 +1,10 @@
 package service
 
 import (
+	"context"
 	"github.com/zikwall/monit/src/protobuf/storage"
 	"google.golang.org/grpc"
+	"time"
 )
 
 type StorageClientImp struct {
@@ -10,13 +12,16 @@ type StorageClientImp struct {
 	client storage.StorageClient
 }
 
-func newStorageClient(listenAddress string) (*StorageClientImp, error) {
+func newStorageClient(ctx context.Context, listenAddress string) (*StorageClientImp, error) {
 	impl := &StorageClientImp{}
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 	}
 
-	conn, err := grpc.Dial(listenAddress, opts...)
+	ctx, cancel := context.WithTimeout(ctx, time.Second*5)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, listenAddress, opts...)
 	if err != nil {
 		return nil, err
 	}
