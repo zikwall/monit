@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	clickhousebuffer "github.com/zikwall/clickhouse-buffer"
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/protobuf/storage"
+	"github.com/zikwall/monit/src/services/storage/server"
+	"github.com/zikwall/monit/src/services/storage/service"
 	"google.golang.org/grpc"
 	"net"
 	"os"
@@ -70,8 +73,30 @@ func Main(ctx *cli.Context) error {
 		logger.Info("received a system signal to shutdown STORAGE server, start the shutdown process..")
 	})
 
+	storageService, err := service.New(ctx.Context, &service.Options{
+		Clickhouse: &clickhousebuffer.ClickhouseCfg{
+			Address:  ctx.String("clickhouse-address"),
+			User:     ctx.String("clickhouse-user"),
+			Password: ctx.String("clickhouse-password"),
+			Database: ctx.String("clickhouse-database"),
+			AltHosts: ctx.String("clickhouse-alt-hosts"),
+			IsDebug:  ctx.Bool("debug"),
+		},
+	})
+
+	if err != nil {
+		return err
+	}
+
+	defer func() {
+		storageService.Shutdown(func(err error) {
+			logger.Warning(err)
+		})
+		storageService.Stacktrace()
+	}()
+
 	grpcServer := grpc.NewServer([]grpc.ServerOption{}...)
-	storage.RegisterStorageServer(grpcServer, &serverImpl{})
+	storage.RegisterStorageServer(grpcServer, server.NewGRPCServerImpl(storageService.Buffer.Client()))
 
 	defer func() {
 		grpcServer.GracefulStop()
