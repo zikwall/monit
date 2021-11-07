@@ -56,6 +56,12 @@ func main() {
 				Usage:    "Monitoring gRPC host",
 				EnvVars:  []string{"MONITORING_ADDRESS"},
 			},
+			&cli.StringFlag{
+				Name:    "maxmind-mmdb",
+				Usage:   "Path to City.mmdb file for Maxmind",
+				Value:   "./share/geo/GeoLite2-City.mmdb",
+				EnvVars: []string{"MAXMIND_MMDB"},
+			},
 			&cli.BoolFlag{
 				Name:    "debug",
 				EnvVars: []string{"DEBUG"},
@@ -77,6 +83,10 @@ func Main(ctx *cli.Context) error {
 
 	apiService, err := service.New(ctx.Context, &service.ImplOptions{
 		StorageAddress: ctx.String("storage-address"),
+		MaxmindOptions: &service.MaxmindOptions{
+			Path:  ctx.String("maxmind-mmdb"),
+			Debug: ctx.Bool("debug"),
+		},
 	})
 
 	if err != nil {
@@ -91,14 +101,18 @@ func Main(ctx *cli.Context) error {
 	}()
 
 	go func() {
-		controller := actions.NewHTTPController(apiService.StorageClient.Client())
+		controller := actions.NewHTTPController(
+			apiService.StorageClient.Client(),
+			apiService.Maxmind,
+		)
 		app := fiber.New(fiber.Config{
 			ErrorHandler: middlewares.ErrorHandler,
 		})
 
 		api := app.Group("/api")
-		api.Post("/data/heatmap", controller.Heatmap)
-		api.Post("/data/event", controller.Event)
+		data := api.Group("/data", middlewares.IP)
+		data.Post("/heatmap", controller.Heatmap)
+		data.Post("/event", controller.Event)
 
 		ln, err := resolveListener(
 			apiService.Context(),

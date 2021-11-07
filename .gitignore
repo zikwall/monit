@@ -16,3 +16,5 @@
 
 .idea
 bin/run_local_*
+share/*
+!share/.gitkeep
