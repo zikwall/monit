@@ -2,11 +2,13 @@ package drop
 
 import (
 	"fmt"
-	"github.com/zikwall/monit/src/pkg/logger"
-	"golang.org/x/net/context"
 	"runtime"
 	"strconv"
 	"time"
+
+	"golang.org/x/net/context"
+
+	"github.com/zikwall/monit/src/pkg/logger"
 )
 
 type Impl struct {
@@ -40,7 +42,7 @@ func (s *Impl) Shutdown(onError func(error)) {
 	s.cancelRoot()
 	logger.Info("root context is canceled")
 	s.EachDroppers(func(dropper Drop) {
-		if impl, ok := dropper.(DropDebug); ok {
+		if impl, ok := dropper.(Debug); ok {
 			logger.Info(impl.DropMsg())
 		}
 		if err := dropper.Drop(); err != nil {

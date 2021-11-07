@@ -3,8 +3,10 @@ package actions
 import (
 	"errors"
 	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/mssola/user_agent"
+
 	"github.com/zikwall/monit/src/protobuf/storage"
 )
 
@@ -35,9 +37,9 @@ func extractHeatmapRequestData(ctx *fiber.Ctx) ([]HeatmapJSON, string, error) {
 	return data, userAgentString, nil
 }
 
-func withUserAgent(header string, heatmap HeatmapJSON) HeatmapJSON {
+func withUserAgent(header string, heatmap *HeatmapJSON) {
 	if header == "" {
-		return heatmap
+		return
 	}
 	ua := user_agent.New(header)
 	browser, version := ua.Browser()
@@ -47,7 +49,6 @@ func withUserAgent(header string, heatmap HeatmapJSON) HeatmapJSON {
 	heatmap.Browser = browser
 	heatmap.Platform = ua.Platform()
 	heatmap.OS = ua.OS()
-	return heatmap
 }
 
 func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
@@ -59,24 +60,24 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 	ip := fmt.Sprintf("%v", ctx.Locals("ip"))
 	country, region, mxErr := ht.maxmind.Lookup(ip)
 
-	for _, heatmap := range data {
-		heatmap = withUserAgent(ua, heatmap)
+	for i := range data {
+		withUserAgent(ua, &data[i])
 		if mxErr == nil {
-			heatmap.Country = country
-			heatmap.Region = region
+			data[i].Country = country
+			data[i].Region = region
 		}
 
 		_, err := ht.storageClient.WriteHeatmap(ctx.Context(), &storage.HeatmapMessage{
-			StreamID:  heatmap.StreamID,
-			UniqueID:  heatmap.UniqueID,
-			Platform:  heatmap.Platform,
-			App:       heatmap.App,
-			Version:   heatmap.Version,
-			OS:        heatmap.OS,
-			Browser:   heatmap.Browser,
-			Country:   heatmap.Country,
-			Region:    heatmap.Region,
-			Host:      heatmap.Host,
+			StreamID:  data[i].StreamID,
+			UniqueID:  data[i].UniqueID,
+			Platform:  data[i].Platform,
+			App:       data[i].App,
+			Version:   data[i].Version,
+			OS:        data[i].OS,
+			Browser:   data[i].Browser,
+			Country:   data[i].Country,
+			Region:    data[i].Region,
+			Host:      data[i].Host,
 			UserAgent: ua,
 		})
 		if err != nil {

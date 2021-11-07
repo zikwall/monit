@@ -1,10 +1,12 @@
-package repository
+package main
 
 import (
+	"os"
+
 	"github.com/urfave/cli/v2"
+
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
-	"os"
 )
 
 func main() {
@@ -65,7 +67,7 @@ func main() {
 	}
 }
 
-func Main(ctx *cli.Context) error {
+func Main(_ *cli.Context) error {
 	await, _ := signal.Notifier(func() {
 		logger.Info("received a system signal to shutdown REPOSITORY server, start the shutdown process..")
 	})

@@ -14,14 +14,14 @@ type Drop interface {
 	Drop() error
 }
 
-// DropDebug interface implementation in DropDebug + Drop interface
+// Debug interface implementation in DropDebug + Drop interface
 // allows you to output user messages during resource cleanup
 // ```code
 // 	func (conn SomeConnection) DropMsg() string {
 //		return "close something connection pool"
 //	}
 // ```
-type DropDebug interface {
+type Debug interface {
 	DropMsg() string
 }
 
