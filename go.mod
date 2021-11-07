@@ -8,15 +8,19 @@ require (
 )
 
 require (
+	github.com/ClickHouse/clickhouse-go v1.5.1 // indirect
 	github.com/andybalholm/brotli v1.0.3 // indirect
+	github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/gofiber/fiber/v2 v2.21.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/jmoiron/sqlx v1.3.4 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.31.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	github.com/zikwall/clickhouse-buffer v0.0.2 // indirect
 	golang.org/x/net v0.0.0-20211105192438-b53810dc28af // indirect
 	golang.org/x/sys v0.0.0-20211106132015-ebca88c72f68 // indirect
 	golang.org/x/text v0.3.7 // indirect

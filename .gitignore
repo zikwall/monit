@@ -15,3 +15,4 @@
 # vendor/
 
 .idea
+./bin/run_local_*

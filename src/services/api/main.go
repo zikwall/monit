@@ -101,7 +101,7 @@ func Main(ctx *cli.Context) error {
 		api.Post("/data/event", controller.Event)
 
 		ln, err := resolveListener(
-			apiService.Context,
+			apiService.Context(),
 			ctx.Int("listener"),
 			ctx.String("bind-socket"),
 			ctx.String("bind-address"),
