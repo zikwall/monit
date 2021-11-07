@@ -37,16 +37,19 @@ func extractHeatmapRequestData(ctx *fiber.Ctx) ([]HeatmapJSON, string, error) {
 	return data, userAgentString, nil
 }
 
-func withUserAgent(header string) (string, string, string) {
+func withUserAgent(header string) (browser, platform, os string) {
 	if header == "" {
 		return "", "", ""
 	}
 	ua := user_agent.New(header)
+	platform = ua.Platform()
+	os = ua.OS()
+
 	browser, version := ua.Browser()
 	if version != "" {
 		browser = fmt.Sprintf("%s/%s", browser, version)
 	}
-	return browser, ua.Platform(), ua.OS()
+	return browser, platform, os
 }
 
 func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
