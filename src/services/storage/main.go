@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"net"
+	"os"
+
 	"github.com/urfave/cli/v2"
+	"google.golang.org/grpc"
+
 	clickhousebuffer "github.com/zikwall/clickhouse-buffer"
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/protobuf/storage"
 	"github.com/zikwall/monit/src/services/storage/server"
 	"github.com/zikwall/monit/src/services/storage/service"
-	"google.golang.org/grpc"
-	"net"
-	"os"
 )
 
 func main() {

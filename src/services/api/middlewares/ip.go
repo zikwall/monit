@@ -1,6 +1,8 @@
 package middlewares
 
-import "github.com/gofiber/fiber/v2"
+import (
+	fiber "github.com/gofiber/fiber/v2"
+)
 
 func IP(c *fiber.Ctx) error {
 	ip := c.IP()

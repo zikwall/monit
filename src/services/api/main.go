@@ -2,16 +2,18 @@ package main
 
 import (
 	"context"
+	"net"
+	"os"
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/urfave/cli/v2"
+
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/services/api/actions"
 	"github.com/zikwall/monit/src/services/api/middlewares"
 	"github.com/zikwall/monit/src/services/api/service"
-	"net"
-	"os"
-	"strings"
 )
 
 func main() {

@@ -2,11 +2,13 @@ package drop
 
 import (
 	"fmt"
-	"github.com/zikwall/monit/src/pkg/logger"
-	"golang.org/x/net/context"
 	"runtime"
 	"strconv"
 	"time"
+
+	"golang.org/x/net/context"
+
+	"github.com/zikwall/monit/src/pkg/logger"
 )
 
 type Impl struct {

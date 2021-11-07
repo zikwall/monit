@@ -1,10 +1,12 @@
 package main
 
 import (
+	"os"
+
 	"github.com/urfave/cli/v2"
+
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
-	"os"
 )
 
 func main() {

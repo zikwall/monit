@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"github.com/zikwall/monit/src/pkg/logger"
 	"net"
 	"os"
 	"time"
+
+	"github.com/zikwall/monit/src/pkg/logger"
 )
 
 const (
@@ -42,7 +43,7 @@ func maybeChmodSocket(c context.Context, sock string) {
 			case <-ctx.Done():
 				return
 			case <-time.After(time.Millisecond * 100):
-				if err := os.Chmod(sock, 0666); err == nil {
+				if err := os.Chmod(sock, 0o666); err == nil {
 					logger.Warning(err)
 				} else {
 					_, err := os.Stat(sock)

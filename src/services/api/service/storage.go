@@ -2,9 +2,11 @@ package service
 
 import (
 	"context"
-	"github.com/zikwall/monit/src/protobuf/storage"
-	"google.golang.org/grpc"
 	"time"
+
+	"google.golang.org/grpc"
+
+	"github.com/zikwall/monit/src/protobuf/storage"
 )
 
 type StorageClientImp struct {

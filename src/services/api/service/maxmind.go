@@ -1,8 +1,9 @@
 package service
 
 import (
-	"github.com/oschwald/geoip2-golang"
 	"net"
+
+	"github.com/oschwald/geoip2-golang"
 )
 
 type Maxmind struct {

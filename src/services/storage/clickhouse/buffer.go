@@ -2,7 +2,8 @@ package clickhouse
 
 import (
 	"context"
-	"github.com/zikwall/clickhouse-buffer"
+
+	clickhousebuffer "github.com/zikwall/clickhouse-buffer"
 )
 
 type BufferAdapter struct {

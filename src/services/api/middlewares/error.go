@@ -2,7 +2,9 @@ package middlewares
 
 import (
 	"errors"
+
 	"github.com/gofiber/fiber/v2"
+
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/services/api/actions"
 )

@@ -3,8 +3,10 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/zikwall/clickhouse-buffer"
+
+	clickhousebuffer "github.com/zikwall/clickhouse-buffer"
 	"github.com/zikwall/clickhouse-buffer/src/buffer/memory"
+
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/protobuf/common"
 	"github.com/zikwall/monit/src/protobuf/storage"

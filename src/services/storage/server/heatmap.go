@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/zikwall/clickhouse-buffer/src/buffer"
+
 	"github.com/zikwall/monit/src/protobuf/storage"
 )
 
