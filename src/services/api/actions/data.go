@@ -37,18 +37,16 @@ func extractHeatmapRequestData(ctx *fiber.Ctx) ([]HeatmapJSON, string, error) {
 	return data, userAgentString, nil
 }
 
-func withUserAgent(header string, heatmap *HeatmapJSON) {
+func withUserAgent(header string) (string, string, string) {
 	if header == "" {
-		return
+		return "", "", ""
 	}
 	ua := user_agent.New(header)
 	browser, version := ua.Browser()
 	if version != "" {
 		browser = fmt.Sprintf("%s/%s", browser, version)
 	}
-	heatmap.Browser = browser
-	heatmap.Platform = ua.Platform()
-	heatmap.OS = ua.OS()
+	return browser, ua.Platform(), ua.OS()
 }
 
 func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
@@ -59,9 +57,9 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 
 	ip := fmt.Sprintf("%v", ctx.Locals("ip"))
 	country, region, mxErr := ht.maxmind.Lookup(ip)
+	browser, platform, os := withUserAgent(ua)
 
 	for i := range data {
-		withUserAgent(ua, &data[i])
 		if mxErr == nil {
 			data[i].Country = country
 			data[i].Region = region
@@ -70,11 +68,11 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 		_, err := ht.storageClient.WriteHeatmap(ctx.Context(), &storage.HeatmapMessage{
 			StreamID:  data[i].StreamID,
 			UniqueID:  data[i].UniqueID,
-			Platform:  data[i].Platform,
+			Platform:  platform,
 			App:       data[i].App,
 			Version:   data[i].Version,
-			OS:        data[i].OS,
-			Browser:   data[i].Browser,
+			OS:        os,
+			Browser:   browser,
 			Country:   data[i].Country,
 			Region:    data[i].Region,
 			Host:      data[i].Host,
