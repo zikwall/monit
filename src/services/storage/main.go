@@ -7,6 +7,7 @@ import (
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/protobuf/storage"
+	"github.com/zikwall/monit/src/services/storage/server"
 	"github.com/zikwall/monit/src/services/storage/service"
 	"google.golang.org/grpc"
 	"net"
@@ -95,7 +96,7 @@ func Main(ctx *cli.Context) error {
 	}()
 
 	grpcServer := grpc.NewServer([]grpc.ServerOption{}...)
-	storage.RegisterStorageServer(grpcServer, NewGRPCServerImpl(storageService.Buffer.Client()))
+	storage.RegisterStorageServer(grpcServer, server.NewGRPCServerImpl(storageService.Buffer.Client()))
 
 	defer func() {
 		grpcServer.GracefulStop()

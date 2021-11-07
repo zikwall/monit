@@ -12,7 +12,7 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 		Platform:  "",
 		App:       "",
 		Version:   "",
-		Os:        "",
+		OS:        "",
 		Browser:   "",
 		Region:    "",
 		Host:      "",
@@ -21,6 +21,6 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 	return err
 }
 
-func (ht *HTTPController) Event(ctx *fiber.Ctx) error {
+func (ht *HTTPController) Event(_ *fiber.Ctx) error {
 	return nil
 }
