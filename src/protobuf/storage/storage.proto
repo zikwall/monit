@@ -11,8 +11,9 @@ message HeatmapMessage {
   string platform = 3;
   string app = 4;
   string version = 5;
-  string os = 6;
+  string OS = 6;
   string browser = 7;
+  string country = 8;
   string region = 9;
   string host = 10;
   string userAgent = 11;

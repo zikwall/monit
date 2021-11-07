@@ -88,9 +88,9 @@ func wrapHeatmap(h *storage.HeatmapMessage) *heatmap {
 		Platform: h.Platform,
 		App:      h.App,
 		Version:  h.Version,
-		OS:       h.Os,
+		OS:       h.OS,
 		Browser:  h.Browser,
-		Country:  "",
+		Country:  h.Country,
 		Region:   h.Region,
 		Host:     h.Host,
 	}
