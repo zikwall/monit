@@ -40,7 +40,7 @@ func (s *Impl) Shutdown(onError func(error)) {
 	s.cancelRoot()
 	logger.Info("root context is canceled")
 	s.EachDroppers(func(dropper Drop) {
-		if impl, ok := dropper.(DropDebug); ok {
+		if impl, ok := dropper.(Debug); ok {
 			logger.Info(impl.DropMsg())
 		}
 		if err := dropper.Drop(); err != nil {

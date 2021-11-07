@@ -1,4 +1,4 @@
-package monitoring
+package main
 
 import (
 	"github.com/urfave/cli/v2"
@@ -48,7 +48,7 @@ func main() {
 	}
 }
 
-func Main(ctx *cli.Context) error {
+func Main(_ *cli.Context) error {
 	await, _ := signal.Notifier(func() {
 		logger.Info("received a system signal to shutdown API server, start the shutdown process..")
 	})

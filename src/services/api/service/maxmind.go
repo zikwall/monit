@@ -31,7 +31,7 @@ func newMaxmind(options *MaxmindOptions) (*Maxmind, error) {
 	return mx, nil
 }
 
-func (m *Maxmind) Lookup(ip string) (country string, region string, err error) {
+func (m *Maxmind) Lookup(ip string) (country, region string, err error) {
 	record, err := m.reader.City(net.ParseIP(ip))
 	if err != nil {
 		return "", "", err
