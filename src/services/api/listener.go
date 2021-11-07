@@ -61,5 +61,5 @@ func maybeChmodSocket(c context.Context, sock string) {
 		}
 	}()
 
-	_ = os.Chmod(sock, 0666)
+	_ = os.Chmod(sock, 0o666)
 }
