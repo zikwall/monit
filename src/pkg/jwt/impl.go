@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+
 	"github.com/zikwall/monit/src/pkg/exceptions"
 )
 
