@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/zikwall/monit/src/services/api/constants"
 	"net"
 	"os"
 	"strings"
@@ -13,6 +12,7 @@ import (
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/services/api/actions"
+	"github.com/zikwall/monit/src/services/api/constants"
 	"github.com/zikwall/monit/src/services/api/middlewares"
 	"github.com/zikwall/monit/src/services/api/service"
 )

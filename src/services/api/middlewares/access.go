@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"github.com/gofiber/fiber/v2"
+
 	"github.com/zikwall/monit/src/pkg/exceptions"
 	"github.com/zikwall/monit/src/pkg/jwt"
 )
