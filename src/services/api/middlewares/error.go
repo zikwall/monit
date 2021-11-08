@@ -2,6 +2,8 @@ package middlewares
 
 import (
 	"errors"
+	"fmt"
+	"github.com/zikwall/monit/src/pkg/exceptions"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -15,16 +17,24 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		value := "Internal Server Error"
 
 		var e *fiber.Error
+		var w *exceptions.WrapError
 
 		if errors.As(err, &e) {
 			code = e.Code
 			value = e.Message
+		} else if errors.As(err, &w) {
+			var pub *exceptions.ErrPublic
+			var pri *exceptions.ErrPrivate
+
+			if errors.As(err, &pub) {
+				value = fmt.Sprintf("%s: %v", w.Context, pub.Error())
+			} else if errors.As(err, &pri) {
+				logger.Warning(fmt.Sprintf("%s: %v", w.Context, pri.Error()))
+			}
 		}
 
-		logger.Warning(err.Error())
-
 		return ctx.Status(code).JSON(actions.Response{
-			"status":  false,
+			"status":  code,
 			"message": value,
 		})
 	}
