@@ -12,6 +12,7 @@ import (
 	"github.com/zikwall/monit/src/pkg/logger"
 	"github.com/zikwall/monit/src/pkg/signal"
 	"github.com/zikwall/monit/src/services/api/actions"
+	"github.com/zikwall/monit/src/services/api/constants"
 	"github.com/zikwall/monit/src/services/api/middlewares"
 	"github.com/zikwall/monit/src/services/api/service"
 )
@@ -111,10 +112,28 @@ func Main(ctx *cli.Context) error {
 			ErrorHandler: middlewares.ErrorHandler,
 		})
 
-		api := app.Group("/api")
-		data := api.Group("/data", middlewares.IP)
+		// API version 1
+		v1 := app.Group("/api/v1")
+
+		// Data API Group
+		data := v1.Group("/data", middlewares.IP)
 		data.Post("/heatmap", controller.Heatmap)
 		data.Post("/event", controller.Event)
+
+		// Auth API group
+		auth := v1.Group("/auth")
+		auth.Post("/jwt", controller.Login)
+
+		withProtectedV1 := v1.Group("/private", middlewares.JWT(constants.PublicKey), middlewares.Access())
+
+		// State API Group
+		state := withProtectedV1.Group("/state/streams")
+		state.Get("/:id?", nope)
+		state.Post("/up/:id", nope)
+		state.Post("/down/:id", nope)
+		state.Post("/create", nope)
+		state.Post("/update/:id", nope)
+		state.Delete("/delete/:id", nope)
 
 		ln, err := resolveListener(
 			apiService.Context(),
@@ -156,4 +175,7 @@ func resolveListener(ctx context.Context, listener int, uds, tcp string) (net.Li
 	}
 
 	return ln, nil
+}
+func nope(ctx *fiber.Ctx) error {
+	return ctx.SendString(ctx.OriginalURL())
 }

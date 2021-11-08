@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/mssola/user_agent"
 
+	"github.com/zikwall/monit/src/pkg/exceptions"
 	"github.com/zikwall/monit/src/protobuf/storage"
 )
 
@@ -55,7 +56,7 @@ func withUserAgent(header string) (browser, platform, os string) {
 func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 	data, ua, err := extractHeatmapRequestData(ctx)
 	if err != nil {
-		return err
+		return exceptions.Wrap("receive heatmap", exceptions.ThrowPublicError(err))
 	}
 
 	ip := fmt.Sprintf("%v", ctx.Locals("ip"))
@@ -82,7 +83,7 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 			UserAgent: ua,
 		})
 		if err != nil {
-			return err
+			return exceptions.Wrap("write heatmap", exceptions.ThrowPrivateError(err))
 		}
 	}
 
