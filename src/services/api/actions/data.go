@@ -27,7 +27,7 @@ type HeatmapJSON struct {
 func extractHeatmapRequestData(ctx *fiber.Ctx) ([]HeatmapJSON, string, error) {
 	userAgentString := ctx.Get("User-Agent")
 	if userAgentString == "" {
-		return nil, "", errors.New("empty user agent")
+		return nil, "", errors.New("empty user agents")
 	}
 
 	var data []HeatmapJSON
@@ -56,7 +56,7 @@ func withUserAgent(header string) (browser, platform, os string) {
 func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 	data, ua, err := extractHeatmapRequestData(ctx)
 	if err != nil {
-		return exceptions.Wrap("receive heatmap", exceptions.ThrowPublicError(err))
+		return exceptions.Wrap("receive heatmaps", exceptions.ThrowPublicError(err))
 	}
 
 	ip := fmt.Sprintf("%v", ctx.Locals("ip"))
@@ -83,7 +83,7 @@ func (ht *HTTPController) Heatmap(ctx *fiber.Ctx) error {
 			UserAgent: ua,
 		})
 		if err != nil {
-			return exceptions.Wrap("write heatmap", exceptions.ThrowPrivateError(err))
+			return exceptions.Wrap("write heatmaps", exceptions.ThrowPrivateError(err))
 		}
 	}
 
