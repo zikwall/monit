@@ -27,7 +27,7 @@ type HeatmapJSON struct {
 func extractHeatmapRequestData(ctx *fiber.Ctx) ([]HeatmapJSON, string, error) {
 	userAgentString := ctx.Get("User-Agent")
 	if userAgentString == "" {
-		return nil, "", errors.New("empty user agents")
+		return nil, "", errors.New("empty user agent's")
 	}
 
 	var data []HeatmapJSON

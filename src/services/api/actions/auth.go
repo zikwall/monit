@@ -15,11 +15,11 @@ func (ht *HTTPController) Login(ctx *fiber.Ctx) error {
 	form := &forms.Login{}
 
 	if err := ctx.BodyParser(&form); err != nil {
-		return exceptions.Wrap("failed parse form body", err)
+		return exceptions.Wrap("failed parse form bodies", err)
 	}
 
 	if err := form.Validate(); err != nil {
-		return exceptions.Wrap("failed validate form", err)
+		return exceptions.Wrap("failed validate forms", err)
 	}
 
 	if form.Username != constants.UserName || form.Password != constants.UserPass {
