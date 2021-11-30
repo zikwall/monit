@@ -12,8 +12,8 @@ func getHeatmapTableName() string {
 
 func getHeatmapColumns() []string {
 	return []string{
-		"stream_id",
-		"unique_id",
+		"stream_ids",
+		"unique_ids",
 		"platform",
 		"app",
 		"version",

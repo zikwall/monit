@@ -15,7 +15,7 @@ func main() {
 			&cli.StringFlag{
 				Name:     "bind-address",
 				Required: true,
-				Usage:    "Run service in host",
+				Usage:    "Run service in hosts",
 				EnvVars:  []string{"BIND_ADDRESS"},
 			},
 			&cli.StringFlag{
@@ -27,7 +27,7 @@ func main() {
 			&cli.StringFlag{
 				Name:     "repository-address",
 				Required: true,
-				Usage:    "Repository gRPC host",
+				Usage:    "Repository gRPC hosts",
 				EnvVars:  []string{"REPOSITORY_ADDRESS"},
 			},
 			&cli.StringFlag{

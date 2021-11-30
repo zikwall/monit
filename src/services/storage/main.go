@@ -42,13 +42,13 @@ func main() {
 				Name:     "clickhouse-password",
 				Usage:    "Clickhouse server user password",
 				EnvVars:  []string{"CLICKHOUSE_PASSWORD"},
-				FilePath: "/srv/monit_secret/clickhouse_password",
+				FilePath: "/srv/monit_secret/clickhouse_passwords",
 			},
 			&cli.StringFlag{
 				Name:     "clickhouse-database",
 				Usage:    "Clickhouse server database name",
 				EnvVars:  []string{"CLICKHOUSE_DATABASE"},
-				FilePath: "/srv/monit_secret/clickhouse_database",
+				FilePath: "/srv/monit_secret/clickhouse_databases",
 			},
 			&cli.StringFlag{
 				Name:     "clickhouse-alt-hosts",

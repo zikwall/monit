@@ -15,7 +15,7 @@ func main() {
 			&cli.StringFlag{
 				Name:     "bind-address",
 				Required: true,
-				Usage:    "Run service in host",
+				Usage:    "Run service in hosts",
 				EnvVars:  []string{"BIND_ADDRESS"},
 			},
 			&cli.StringFlag{
@@ -23,7 +23,7 @@ func main() {
 				Required: true,
 				Usage:    "Database host",
 				EnvVars:  []string{"DATABASE_HOST"},
-				FilePath: "/srv/monit_secret/database_host",
+				FilePath: "/srv/monit_secret/database_hosts",
 			},
 			&cli.StringFlag{
 				Name:     "database-user",
